@@ -25,22 +25,22 @@ async def isRobuxGet(cnt):
         await asyncio.sleep(3)
         print("Login Success")
         await asyncio.sleep(3)
-        path = 'xpath=//*[@id="nav-robux-amount"]'
+        path = 'xpath=//*[@id="nav-robux-amount"]' # html 에서 로벅스 양이 나오는 부분
         rand_second = random.randint(2,9)
         handle = await bot.query_selector(path)
         value = await handle.inner_text()
         print("현재 로벅스 수 : {}".format(value))
         print("최소 2초 최대 9초 까지 시간이 걸릴수 있습니다.")
-        result = int(value) + int(cnt)
-        print(result)
+        result = int(value) + int(cnt) #html 에서 긁어오는 값과 입력 받은 값을 int 처리 해줘야 정상적으로 더하기가 됨 
+        #print(result)
 
-        for _ in range(2):
+        for _ in range(rand_second):
             await asyncio.sleep(rand_second)
             await bot.reload()
         x = 'span[id^=nav-robux-amount]'
-        await bot.evaluate(f"() => document.querySelector('{x}').innerHTML = ' '")
+        await bot.evaluate(f"() => document.querySelector('{x}').innerHTML = ' '") #먼저 공백으로 비우기
         await asyncio.sleep(0.3)
-        await bot.evaluate(f"() => document.querySelector('{x}').innerHTML = '{str(result)}'")
+        await bot.evaluate(f"() => document.querySelector('{x}').innerHTML = '{str(result)}'") #그리고 최종적으로 더한 값 html 로벅스 어마운트 값에 대입
         
             
         
